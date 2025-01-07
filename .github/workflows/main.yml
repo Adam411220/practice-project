@@ -20,7 +20,7 @@ jobs:
         run: npm test
 
       - name: build
-        run: npm build
+        run: npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
@@ -30,12 +30,13 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: use artifacts
         uses: actions/download-artifact@v3
         with: 
           name: build-artifacts
-          
+
       - name: Deploy application
         run: |
           echo "Deploying application..."
