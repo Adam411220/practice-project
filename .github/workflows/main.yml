@@ -12,9 +12,36 @@ jobs:
 
       - name: install dependecies
         run: npm ci
+
       - name: lint
         run: npm run lint
+
       - name: test
         run: npm test
+
+      - name: build
+        run: npm build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+         name: build-artifacts
+         path: ./dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: use artifacts
+        uses: actions/download-artifact@v3
+        with: 
+          name: build-artifacts
           
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
+          ls ./dist    
+
+
+
+
 
