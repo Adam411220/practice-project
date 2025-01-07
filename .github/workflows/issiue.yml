@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: get message
         run: |
-            MESSAGE="${{ github.event.issue.body }}"
-            echo "The issue body is: $MESSAGE"
+            echo "{{ toJson(github.event) }}"
+            
  
 
       
