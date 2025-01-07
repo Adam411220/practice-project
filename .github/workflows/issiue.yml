@@ -1,0 +1,17 @@
+name: Practice projecet
+
+on:
+    issues:
+      types: [opened]
+  
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get message
+        run: |
+            MESSAGE="${{ github.event.issue.body }}"
+            echo "The issue body is: $MESSAGE"
+ 
+
+      
