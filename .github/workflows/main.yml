@@ -4,16 +4,17 @@ on:
   push:
   
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - name: get code
         uses: actions/checkout@v4
 
       - name: install dependecies
         run: npm ci
-      - name: test and lint
-        run: |
-          npm run lint && npm test
+      - name: lint
+        run: npm run lint
+      - name: test
+        run: npm test
+          
 
