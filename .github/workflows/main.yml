@@ -1,4 +1,4 @@
-name: Octo Organization CI
+name: Practice projecet
 
 on:
   push:
@@ -8,7 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: get code
+        uses: actions/checkout@v4
 
-      - name: Run a one-line script
-        run: echo Hello from Octo Organization
+      - name: install dependecies
+        run: npm ci
+      - name: test and lint
+        run: |
+          npm run lint && npm test
+
