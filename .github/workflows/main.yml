@@ -2,6 +2,8 @@ name: Practice projecet
 
 on:
   pull_request:
+    types: 
+      - opened
   
 jobs:
   test:
