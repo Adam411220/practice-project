@@ -40,7 +40,7 @@ jobs:
       - name: Deploy application
         run: |
           echo "Deploying application..."
-          ls ./dist    
+          ls -alh
 
 
 
