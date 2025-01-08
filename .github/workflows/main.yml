@@ -43,7 +43,7 @@ jobs:
       - name: Deploy application
         run: |
           echo "Deploying application..."
-          ls -alh
+          ls -al
 
 
 
