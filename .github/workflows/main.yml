@@ -1,9 +1,10 @@
-name: Practice projecet
+name: Practice project
 
 on:
   push:
     branches:
       - 'main'
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -11,7 +12,13 @@ jobs:
       - name: get code
         uses: actions/checkout@v4
 
-      - name: install dependecies
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: install dependencies
         run: npm ci
 
       - name: lint
@@ -20,14 +27,29 @@ jobs:
       - name: test
         run: npm test
 
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v4
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: install dependencies
+        run: npm ci
+
       - name: build
         run: npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-         name: build-artifacts
-         path: ./dist
+          name: build-artifacts
+          path: ./dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -35,7 +57,7 @@ jobs:
     steps:
       - name: use artifacts
         uses: actions/download-artifact@v3
-        with: 
+        with:
           name: build-artifacts
           path: ./dist
 
@@ -43,8 +65,3 @@ jobs:
         run: |
           echo "Deploying application..."
           ls -al
-
-
-
-
-
